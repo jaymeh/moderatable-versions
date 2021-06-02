@@ -1,6 +1,6 @@
 {
     "name": "jaymeh/moderatable-versions",
-    "description": "A new laravel package which combines versionable trait with approval",
+    "description": "A laravel package which combines versionable trait with a simple approval process.",
     "license": "MIT",
     "authors": [
         {
