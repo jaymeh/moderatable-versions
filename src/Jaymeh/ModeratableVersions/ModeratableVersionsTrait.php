@@ -7,11 +7,27 @@ use Mpociot\Versionable\VersionableTrait;
 trait ModeratableVersionsTrait {
     use VersionableTrait;
 
-    // Helper functions for approved_at.
+    // public $approvalEnabled = true;
 
-    // Helper functions for approved_by.
+    // /**
+    //  * @return $this
+    //  */
+    // public function enableApproval()
+    // {
+    //     $this->approvalEnabled = true;
+    //     return $this;
+    // }
 
-    // Handle cancellation of saves.
+    // /**
+    //  * @return $this
+    //  */
+    // public function disableApproval()
+    // {
+    //     $this->approvalEnabled = false;
+    //     return $this;
+    // }
 
-    // Add function to ignore approval.
+    // TODO: How do I handle new models in general?
+
+    // Handle Model saving.
 }

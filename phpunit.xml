@@ -13,9 +13,9 @@
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/Jaymeh/</directory>
-        </whitelist>
-    </filter>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src/Jaymeh</directory>
+        </include>
+    </coverage>
 </phpunit>

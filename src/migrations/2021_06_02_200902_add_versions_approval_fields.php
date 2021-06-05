@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddVersionsApprovedAtField extends Migration
+class AddVersionsApprovalFields extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddVersionsApprovedAtField extends Migration
     public function up()
     {
         Schema::table('versions', function(Blueprint $table) {
-            $table->date('approved_at')->nullable()->default(null);
+            $table->timestamp('approved_at')->nullable()->default(null);
+            $table->string('approved_by')->nullable()->default(null);
         });
     }
 
@@ -27,6 +28,7 @@ class AddVersionsApprovedAtField extends Migration
     {
         Schema::table('versions', function(Blueprint $table) {
             $table->dropColumn('approved_at');
+            $table->dropColumn('approved_by');
         });
     }
 }
