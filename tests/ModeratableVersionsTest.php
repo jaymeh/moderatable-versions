@@ -16,13 +16,23 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
     /**
      * Tests that getting the version class of a model with the ModeratableVersionTrait
      * uses ModeratableVersions base.
-     *
-     * @return void
      */
     public function testVersionClassIsModeratable() {
+        $user = new TestModeratableVersionsUser();
+        $user->name = "Jaymeh";
+        $user->email = "jaymeh@test.php";
+        $user->password = "12345";
+        $user->last_login = $user->freshTimestamp();
+        $user->save();
 
+        $version = $user->currentVersion();
+
+        $this->assertInstanceOf(ModeratableVersion::class, $version);
     }
 
+    /**
+     * Tests that default attributes with no values are null.
+     */
     public function testModeratableAttributesAreNullByDefault() {
         $user = new TestModeratableVersionsUser();
         $user->name = "Jaymeh";
@@ -37,6 +47,9 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
         $this->assertNull( $version->approved_by );
     }
 
+    /**
+     * Tests that a user can't approve something if they are logged out.
+     */
     public function testVersionApprovalByLoggedOutUser() {
         $user = new TestModeratableVersionsUser();
         $user->name = "Jaymeh";
@@ -52,6 +65,9 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
         $this->assertNotNull($version->approved_at);
     }
 
+    /**
+     * Tests that a logged in user can approve something.
+     */
     public function testApprovalByLoggedInUser() {
         $user = new TestModeratableVersionsUser();
         $user->name = "Jaymeh";
@@ -69,6 +85,9 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
         $this->assertNotNull($version->approved_at);
     }
 
+    /**
+     * Tests that an item cannot be unapproved when a user is logged out.
+     */
     public function testUnapprovalWhenLoggedOut() {
         $user = new TestModeratableVersionsUser();
         $user->name = "Jaymeh";
@@ -86,6 +105,9 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
         $this->assertNotNull($version->approved_at);
     }
 
+    /**
+     * Tests that a version can be unapproved when a user is logged in.
+     */
     public function testUnapprovalWhenLoggedIn() {
         $user = new TestModeratableVersionsUser();
         $user->name = "Jaymeh";
@@ -125,6 +147,8 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
 
         $this->assertEquals($version->isApproved, $shouldApprove);
     }
+
+    
 
     /**
      * Provides a small amount of data for if something should be approved.

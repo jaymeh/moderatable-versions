@@ -13,4 +13,11 @@ class ModeratableVersionsTestCase extends VersionableTestCase {
 
         (new \AddVersionsApprovalFields())->up();
     }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            \Jaymeh\ModeratableVersions\Providers\ServiceProvider::class,
+        ];
+    }
 }
