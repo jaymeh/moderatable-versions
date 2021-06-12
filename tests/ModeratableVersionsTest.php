@@ -13,7 +13,16 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
         Auth::clearResolvedInstances();
     }
 
-    // TODO: Test User Creating Version
+    /**
+     * Tests that getting the version class of a model with the ModeratableVersionTrait
+     * uses ModeratableVersions base.
+     *
+     * @return void
+     */
+    public function testVersionClassIsModeratable() {
+
+    }
+
     public function testModeratableAttributesAreNullByDefault() {
         $user = new TestModeratableVersionsUser();
         $user->name = "Jaymeh";
@@ -172,7 +181,7 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
 class TestModeratableVersionsUser extends \Illuminate\Foundation\Auth\User {
     use ModeratableVersionsTrait;
 
-    protected $versionClass = ModeratableVersion::class ;
+    // protected $versionClass = ModeratableVersion::class ;
 
     protected $table = "users";
 }

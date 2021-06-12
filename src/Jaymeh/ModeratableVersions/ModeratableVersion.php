@@ -3,7 +3,6 @@ namespace Jaymeh\ModeratableVersions;
 
 use Mpociot\Versionable\Version;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class Version
