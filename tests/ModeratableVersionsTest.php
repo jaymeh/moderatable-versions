@@ -148,7 +148,69 @@ class ModeratableVersionsTest extends ModeratableVersionsTestCase {
         $this->assertEquals($version->isApproved, $shouldApprove);
     }
 
-    
+    /**
+     * Tests that when creating a new model, it has no approved versions associated.
+     */
+    public function testThatANewModelHasNoApprovedVersions() {
+        $user = new TestModeratableVersionsUser();
+        $user->name = "Jaymeh";
+        $user->email = "jaymeh@test.php";
+        $user->password = "12345";
+        $user->last_login = $user->freshTimestamp();
+        $user->save();
+
+        $approvedVersions = $user->approvedVersions()->get();
+
+        $this->assertEmpty($approvedVersions);
+    }
+
+    /**
+     * Tests that when we approve a version it shows up in the approved versions list.
+     */
+    public function testThatAnApprovedModelHasApprovedVersions()
+    {
+        $user = new TestModeratableVersionsUser();
+        $user->name = "Jaymeh";
+        $user->email = "jaymeh@test.php";
+        $user->password = "12345";
+        $user->last_login = $user->freshTimestamp();
+        $user->save();
+
+        $currentVersion = $user->currentVersion();
+        $currentVersion->approve();
+
+        // dd($user->approvedVersions()->count());
+
+        $this->assertEquals(1, $user->approvedVersions()->count());
+    }
+
+    /**
+     * As part of the saving process we want to not save a model until 
+     * a version has been approved. As part of this I only want to merge
+     * data from version when approved.
+     */
+    public function testThatAModelIsntUpdatedWithoutApproval() {
+        $user = new TestModeratableVersionsUser();
+        $initialName = 'Jaymeh';
+        $user->name = $initialName;
+        $user->email = "jaymeh@test.php";
+        $user->password = "12345";
+        $user->last_login = $user->freshTimestamp();
+        $user->save();
+
+        $user->name = 'Jeff';
+        $user->save();
+
+        // Pull a fresh copy of a model out of the database.
+        $userData = $user->fresh();
+
+        dd($userData->with('versions')->get());
+
+        $this->assertEquals($userData->name, $initialName);
+
+        // TODO: Ensure a version is still created with the 
+        // change documented so that it can be applied.
+    }
 
     /**
      * Provides a small amount of data for if something should be approved.

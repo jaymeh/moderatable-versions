@@ -18,6 +18,12 @@ Alternatively, publish the migrations:
 Then customize and run them.
 `php artisan migration`
 
+## Restrictions
+
+There are a few restrictions in place due to the implementation of this package. One of which is because versions have to be associated to a model, upon creating a new model it is always set to be approved.
+
+You can work around this by combining some other package like: https://github.com/pawelmysior/laravel-publishable to add publishable status' to your models or alternatively roll your own implementation.
+
 ## Roadmap
 There are a number of features which would be nice to have but haven't made it into this version just yet. These are:
 
